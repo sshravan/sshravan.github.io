@@ -1,5 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://sshravan.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://sshravan.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-03-25T14:52:12-04:00</updated><id>https://sshravan.github.io/feed.xml</id><title type="html">blank</title><subtitle># A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">Bookmarks</title><link href="https://sshravan.github.io/blog/2023/links/" rel="alternate" type="text/html" title="Bookmarks" /><published>2023-10-20T00:00:00-04:00</published><updated>2023-10-20T00:00:00-04:00</updated><id>https://sshravan.github.io/blog/2023/links</id><content type="html" xml:base="https://sshravan.github.io/blog/2023/links/"><![CDATA[<p>Here are a few things I have read or plan to read. This mostly serves as a note for my future self.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://sshravan.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://sshravan.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-05-03T22:54:03-04:00</updated><id>https://sshravan.github.io/feed.xml</id><title type="html">blank</title><subtitle># A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">Consensus</title><link href="https://sshravan.github.io/blog/2026/consensus/" rel="alternate" type="text/html" title="Consensus" /><published>2026-03-22T00:00:00-04:00</published><updated>2026-03-22T00:00:00-04:00</updated><id>https://sshravan.github.io/blog/2026/consensus</id><content type="html" xml:base="https://sshravan.github.io/blog/2026/consensus/"><![CDATA[<h2 id="problem-variants">Problem variants</h2>
+
+<p>There are three broad types of consensus problems:</p>
+<ul>
+  <li><strong>Broadcast problem</strong>:
+    <ul>
+      <li>There is a single sender and multiple receivers.</li>
+      <li>The sender has some value that it wants to broadcast to the receivers, and the receivers want to agree on the value that the sender sent.</li>
+    </ul>
+  </li>
+  <li><strong>Agreement problem</strong>:
+    <ul>
+      <li>There are multiple processes that want to agree on a value.</li>
+      <li>Each process has an initial value, and they want to agree on a single value that is one of the initial values.</li>
+    </ul>
+  </li>
+  <li><strong>State machine replication problem</strong>:
+    <ul>
+      <li>There are multiple processes that want to agree on a <em>sequence</em> of values to give an illusion of a single process executing a sequence of commands.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="network-models">Network models</h2>
+
+<p>There are three broad types of network models:</p>
+<ul>
+  <li><strong>Synchronous</strong>: there is a known finite upper bound on message delivery time $\Delta$.
+    <ul>
+      <li>There are a few popular flavours:
+        <ul>
+          <li>Lock-step synchronous: time is divided into rounds, and in each round each process can send messages to other processes, and all messages sent in round $r$ are delivered by the end of round $r$.</li>
+          <li>Continuous synchronous: there is a known, finite upper bound $\Delta$ on message delivery time, but time is not divided into rounds.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Asynchronous</strong>: there is no upper bound on message delivery time.
+    <ul>
+      <li>Async is pronounced as ay-sink.</li>
+    </ul>
+  </li>
+  <li><strong>Partially synchronous</strong><d-cite key="abraham2019flavours"></d-cite>:
+    <ul>
+      <li>Network mostly behaves like a synchronous network, but there can be periods of asynchrony.</li>
+      <li><strong>Global Stabilization Time (GST) approach</strong><d-cite key="DLS88"></d-cite>:
+        <ul>
+          <li>There is an event called GST that occurs after finite time.</li>
+          <li>No guarantee on message delays before GST, but after GST all message must arrive within some known bound $\Delta$.</li>
+          <li>Any message sent at time x must be delivered by time $\Delta + \max(x, \textsf{GST})$.</li>
+        </ul>
+      </li>
+      <li><strong>Unknown latency approach</strong><d-cite key="DLS88"></d-cite>:
+        <ul>
+          <li>The system is always synchronous, but the bound of the maximum delay is unknown to the protocol designer.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Other specialized network models (non-exhaustive)</strong>:
+    <ul>
+      <li>Semi-synchronous</li>
+      <li>Weakly synchronous</li>
+      <li>Mobile sluggish model<d-cite key="GPS19"></d-cite><d-cite key="AMN+20"></d-cite></li>
+      <li>Granular Synchrony<d-cite key="GAC+24"></d-cite></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="failure-models">Failure models</h2>
+<p>There are three broad types of failure models:</p>
+<ul>
+  <li><strong>Crash failures</strong>: a process can fail by crashing, and once it crashes it does not recover.</li>
+  <li><strong>Omission failures</strong>: a process can fail by omitting to send or receive messages, and can continue to participate in the protocol.</li>
+  <li><strong>Byzantine failures</strong>: a process can deviate arbitrarily from the protocol.</li>
+</ul>
+
+<h2 id="broadcast-problem">Broadcast problem</h2>
+
+<ul>
+  <li><strong>Consistent broadcast</strong></li>
+  <li><strong>Reliable broadcast</strong></li>
+  <li><strong>Atomic broadcast</strong></li>
+  <li><strong>Causal broadcast</strong></li>
+  <li><strong>Crusader broadcast</strong></li>
+  <li><strong>Broadcast</strong></li>
+  <li><strong>Best effort broadcast</strong></li>
+  <li><strong>Total Order Broadcast</strong></li>
+</ul>]]></content><author><name></name></author><category term="consensus" /><category term="broadcast" /><summary type="html"><![CDATA[A running notes on distributed consensus.]]></summary></entry><entry><title type="html">Bookmarks</title><link href="https://sshravan.github.io/blog/2023/links/" rel="alternate" type="text/html" title="Bookmarks" /><published>2023-10-20T00:00:00-04:00</published><updated>2023-10-20T00:00:00-04:00</updated><id>https://sshravan.github.io/blog/2023/links</id><content type="html" xml:base="https://sshravan.github.io/blog/2023/links/"><![CDATA[<p>Here are a few things I have read or plan to read. This mostly serves as a note for my future self.</p>
 
 <p>Tensors:</p>
 <ul>
